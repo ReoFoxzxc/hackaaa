@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\Excited.obj",
+            "outputs": [
+                "Release\\Excited.cpp.obj.dt.module.json",
+                "Release\\Excited.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

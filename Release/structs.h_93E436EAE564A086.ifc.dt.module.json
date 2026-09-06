@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\structs.obj",
+            "outputs": [
+                "Release\\structs.h_93E436EAE564A086.ifc.dt.module.json",
+                "Release\\structs.h_93E436EAE564A086.ifc.dt.d.json",
+                "Release\\structs.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "C:\\Users\\reoreoreo\\source\\repos\\Excited\\Excited\\structs.h",
+                    "source-path": "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\structs.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

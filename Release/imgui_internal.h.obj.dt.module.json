@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\imgui_internal.obj",
+            "outputs": [
+                "Release\\imgui_internal.h.obj.dt.module.json",
+                "Release\\imgui_internal.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

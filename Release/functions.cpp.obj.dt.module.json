@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\functions.obj",
+            "outputs": [
+                "Release\\functions.cpp.obj.dt.module.json",
+                "Release\\functions.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

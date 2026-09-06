@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\imgui_widgets.obj",
+            "outputs": [
+                "Release\\imgui_widgets.cpp.obj.dt.module.json",
+                "Release\\imgui_widgets.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

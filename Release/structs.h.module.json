@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\structs.h.obj",
+            "outputs": [
+                "C:\\Users\\reoreoreo\\source\\repos\\Excited\\Excited\\Release\\vc145.pdb",
+                "Release\\",
+                "C:\\Users\\reoreoreo\\source\\repos\\Excited\\Excited\\Release\\structs.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "structs.h",
+                    "source-path": "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\structs.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

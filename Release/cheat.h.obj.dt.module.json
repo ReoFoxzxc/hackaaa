@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\cheat.obj",
+            "outputs": [
+                "Release\\cheat.h.obj.dt.module.json",
+                "Release\\cheat.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

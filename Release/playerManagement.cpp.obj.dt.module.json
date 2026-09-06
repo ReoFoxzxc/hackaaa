@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\playerManagement.obj",
+            "outputs": [
+                "Release\\playerManagement.cpp.obj.dt.module.json",
+                "Release\\playerManagement.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

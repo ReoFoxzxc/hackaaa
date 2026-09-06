@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\math.obj",
+            "outputs": [
+                "Release\\math.cpp.obj.dt.module.json",
+                "Release\\math.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

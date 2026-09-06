@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\vec.obj",
+            "outputs": [
+                "Release\\vec.h.obj.dt.module.json",
+                "Release\\vec.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

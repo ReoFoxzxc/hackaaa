@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\classes.obj",
+            "outputs": [
+                "Release\\classes.h.obj.dt.module.json",
+                "Release\\classes.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\math.obj",
+            "outputs": [
+                "Release\\math.h.obj.dt.module.json",
+                "Release\\math.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
