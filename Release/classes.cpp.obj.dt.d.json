@@ -328,7 +328,15 @@
             "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\imgui.h",
             "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\imconfig.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\ucrt\\assert.h",
-            "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\memory.h"
+            "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\memory.h",
+            "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\vector",
+            "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_bit_utils.hpp",
+            "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\globals.h",
+            "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\playermanagement.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\d3d9.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\d3d9types.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\d3d9caps.h",
+            "c:\\users\\reoreoreo\\source\\repos\\excited\\excited\\math.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

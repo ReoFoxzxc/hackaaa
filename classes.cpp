@@ -1,5 +1,8 @@
 #include "classes.h"
 #include "memory.h"
+#include "globals.h"
+#include "math.h"
+
 
 
 Player::Player(uintptr_t playerPtr) {
@@ -139,36 +142,66 @@ ImU32 Player::getBoxColor() const {
 void Player::ComputeBoxDimensions() {
     boxHeight = screenFeet.y - screenHead.y;
     boxWidth = boxHeight / 2.0f;
-
 }
 
 void Player::DrawBox(ImDrawList* drawList, float rounding, float thickness) const {
     drawList->AddRect(getBoxTopLeft(), getBoxBottomRight(), getBoxColor(), rounding, 0, thickness);
 }
 
-void Player::DrawTextAboveBox(ImDrawList* drawList, const std::string& text, float yOffset, ImU32 Color) const {
+void Player::DrawTextAboveBox(ImDrawList* drawList, const std::string& text, float yOffset, ImU32 color) const {
     ImVec2 topLeft = getBoxTopLeft();
     ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
     ImVec2 pos = ImVec2(screenHead.x - textSize.x / 2.0f, topLeft.y + yOffset);
-    drawList->AddText(pos, Color, text.c_str());
+    drawList->AddText(pos, color, text.c_str());
 }
 
 void Player::DrawHealthBar(ImDrawList* drawList) const {
 
+    float boxHeight = screenFeet.y - screenHead.y;
+    float healthPct = clamp<float>(getHealth() / 100.0f, 0.0f, 1.0f);
+    float healthHeight = boxHeight * healthPct;
+    ImVec2 topLeft = getBoxTopLeft();
+    ImVec2 bottomRight = getBoxBottomRight();
+    ImVec2 barStart = { topLeft.x - 6, bottomRight.y - healthHeight };
+    ImVec2 barEnd = { topLeft.x - 2.1f, bottomRight.y };
+    drawList->AddRectFilled(barStart, barEnd, IM_COL32(0, 255, 0, 255));
+    drawList->AddRect(ImVec2(topLeft.x - 6, topLeft.y), ImVec2(topLeft.x - 2, bottomRight.y), IM_COL32(255, 255, 255, 100));
 }
 
-void Player::DrawDistance(ImDrawList* drawList, ImU32 color) const {
+void Player::DrawDistance(ImDrawList* drawList, float distance, ImU32 color) const {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%.2f m", distance);
 
+    ImVec2 textSize = ImGui::CalcTextSize(buf);
+    ImVec2 topLeft = getBoxTopLeft();
+    float centerX = topLeft.x + boxWidth / 2.0f;
+    ImVec2 pos = ImVec2(centerX - textSize.x / 2.0f, screenFeet.y + 5);
+
+    drawList->AddText(pos, color, buf);
 }
 
 void Player::DrawName(ImDrawList* drawList) const {
-
+    DrawTextAboveBox(drawList, getName(), 1);
 }
 
-void Player::DrawNameAndDistance(ImDrawList* drawList) const {
+void Player::DrawNameAndDistance(ImDrawList* drawList, float distance, ImU32 color = IM_COL32(255, 255, 255, 255)) const {
+    const char* name = getName();
+    char buf[64];
+    snprintf(buf, sizeof(buf), "%s  %.2f m", name, distance);
 
+    ImVec2 textSize = ImGui::CalcTextSize(buf);
+    float centerX = screenHead.x;
+    ImVec2 pos = ImVec2(centerX - textSize.x / 2.0f, screenFeet.y + 5.0f);
+
+    drawList->AddText(pos, color, buf);
 }
 
-void Player::DrawSnapline(ImDrawList* drawList) const {
+void Player::DrawSnapline(ImDrawList* drawList, ImU32 color = IM_COL32(255, 255, 255, 255)) const {
+    ImVec2 bottomRight = getBoxBottomRight();
+    ImVec2 bottomCenter = ImVec2(
+        bottomRight.x - ((boxHeight / 2.0f) / 2.0f), // height / 5 = width | width / 2 = half a width | width - half a width = cnter of the box
+        bottomRight.y);
+    ImVec2 to = ImVec2(screenWidth / 2.0f, screenHeight);
 
+    drawList->AddLine(bottomCenter, to, color, 1.0f);
 }

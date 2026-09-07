@@ -9,6 +9,8 @@
 	WNDCLASSEX wc = {};
 	D3DPRESENT_PARAMETERS d3dpp = {};
 
+	bool NoRecoilCurrentlyPatched = false;
+
 	int screenWidth = 0;
 	int screenHeight = 0;
 	int lastWidth = 0;

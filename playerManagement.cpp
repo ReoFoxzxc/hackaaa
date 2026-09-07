@@ -48,4 +48,8 @@ void PlayerManagement::ReadLocalPlayer() {
 	Player localPlayer(OFFSET_LOCALPLAYER, true);
 	if (!localPlayer.isValidCheck()) return;
 	this->localPlayer = std::move(localPlayer);
+	WPM<int>(this->localPlayer.address + 0x0EC, 100);
+	WPM<int>(this->localPlayer.address + 0x0F0, 100);
+	WPM<int>(this->localPlayer.address + 0x140, 100);
+
 }

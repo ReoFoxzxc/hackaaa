@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <vector>
 
 extern HANDLE hGame;
 
@@ -22,4 +23,13 @@ bool WPM(uintptr_t address, T value) {
 	SIZE_T bytesWritten = 0;
 	return WriteProcessMemory(hGame, reinterpret_cast<LPVOID>(address), &value, sizeof(T), &bytesWritten)
 		&& bytesWritten == sizeof(T);
+}
+
+inline void WPM(uintptr_t address, const BYTE* buffer, size_t size) {
+	WriteProcessMemory(hGame, reinterpret_cast<LPVOID>(address), buffer, size, nullptr);
+}
+
+inline void NopMemory(uintptr_t address, size_t size) {
+	std::vector<uint8_t> nopBytes(size, 0x90);
+	WPM(address, nopBytes);
 }

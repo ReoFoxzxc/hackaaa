@@ -10,8 +10,47 @@ void DrawESP(const std::vector<Player>& players) {
     ImDrawList* drawList = ImGui::GetBackgroundDrawList();
     if (!drawList) return;
 
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLinesUseTex;
+
     for (const auto& player : players) {
         if (player.isEnemy) { player.DrawBox(drawList); }
+    }
+}
+
+
+void DrawHP(const std::vector<Player>& players) {
+    if (!ImGui::GetCurrentContext()) return;
+
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    if (!drawList) return;
+
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLinesUseTex;
+
+
+    for (const auto& player : players) {
+        if (player.isEnemy) { player.DrawHealthBar(drawList); }
+    }
+}
+
+
+void DrawDist(const std::vector<Player>& players) {
+    if (!ImGui::GetCurrentContext()) return;
+
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    if (!drawList) return;
+
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+
+    for (const auto& player : players) {
+        if (player.isEnemy) {
+            float distance = player.Distance(g_playerManagement.getLocalPlayerRef());
+            player.DrawDistance(drawList, distance);
+        }
     }
 }
 
@@ -21,6 +60,10 @@ void DrawFOV() {
 
     ImDrawList* drawList = ImGui::GetBackgroundDrawList();
     if (!drawList) return;
+
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLinesUseTex;
 
     ImVec2 center = ImVec2(
         static_cast<float>(screenWidth) / 2.0f,
@@ -32,6 +75,46 @@ void DrawFOV() {
 
 
     drawList->AddCircle(center, radius, color);
+}
+
+
+void DrawSL(const std::vector<Player>& players) {
+    if (!ImGui::GetCurrentContext()) return;
+
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    if (!drawList) return;
+
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLinesUseTex;
+
+    ImU32 color = IM_COL32(255, 255, 255, 255);
+
+    for (const auto& player : players) {
+        if (player.isEnemy) {
+            player.DrawSnapline(drawList, color);
+        }
+    }
+}
+
+
+void DrawND(const std::vector<Player>& players) {
+    if (!ImGui::GetCurrentContext()) return;
+
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    if (!drawList) return;
+
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLines;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedFill;
+    drawList->Flags |= ImDrawListFlags_AntiAliasedLinesUseTex;
+
+    ImU32 color = IM_COL32(255, 255, 255, 255);
+    for (const auto& player : players) {
+        if (player.isEnemy) {
+            float distance = player.Distance(g_playerManagement.getLocalPlayerRef());
+            player.DrawNameAndDistance(drawList, distance, color);
+        }
+    }
 }
 
 
@@ -59,3 +142,18 @@ void AimBot(const std::vector<Player>& players, Player& localPlayer, float fov) 
         WPM<float>(localPlayer.address + 0x038, aimAngles.y);
     }
 }
+
+
+void NoRecoil() {
+    BYTE nopPatch[5] = { 0x90, 0x90, 0x90, 0x90, 0x90 };
+    WPM(OFFSET_RECOIL, nopPatch, sizeof(nopPatch));
+    NoRecoilCurrentlyPatched = true;
+}
+
+    /*
+    
+    BYTE originalRecoilBytes[5] = { 0xF3, 0x0F, 0x11, 0x56, 0x38 };
+        WPM(OFFSET_RECOIL, originalRecoilBytes, sizeof(originalRecoilBytes));
+        noRecoilCurrentlyPatched = false;
+        
+        */

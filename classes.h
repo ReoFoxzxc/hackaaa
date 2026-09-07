@@ -58,10 +58,10 @@ public:
 	ImU32 getBoxColor() const;
 	void ComputeBoxDimensions();
 	void DrawBox(ImDrawList* drawList, float rounding = 0.0f, float thickness = 1.0f) const;
-	void DrawTextAboveBox(ImDrawList* drawList, const std::string &text, float yOffset, ImU32 Color = IM_COL32(255, 255, 255, 255)) const;
+	void DrawTextAboveBox(ImDrawList* drawList, const std::string &text, float yOffset, ImU32 color = IM_COL32(255, 255, 255, 255)) const;
+	void DrawDistance(ImDrawList* drawList, float distance, ImU32 color = IM_COL32(255, 255, 255, 255)) const;
 	void DrawHealthBar(ImDrawList* drawList) const;
-	void DrawDistance(ImDrawList* drawList, ImU32 color = IM_COL32(255, 255, 255, 255)) const;
 	void DrawName(ImDrawList* drawList) const;
-	void DrawNameAndDistance(ImDrawList* drawList) const;
-	void DrawSnapline(ImDrawList* drawList) const;
+	void DrawNameAndDistance(ImDrawList* drawList, float distance, ImU32 color) const;
+	void DrawSnapline(ImDrawList* drawList, ImU32 color) const;
 };

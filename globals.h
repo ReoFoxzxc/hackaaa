@@ -10,6 +10,7 @@ constexpr uintptr_t OFFSET_LOCALPLAYER = 0x0058AC00;
 constexpr uintptr_t OFFSET_NUMPLAYERS = 0x0058AC0C;
 constexpr uintptr_t OFFSET_ENTITYLIST = 0x0058AC04;
 constexpr uintptr_t OFFSET_CURRENT_FRAME = 0x0057F10C;
+constexpr uintptr_t OFFSET_RECOIL = 0x004C2EC3;
 constexpr uintptr_t OFFSET_VIEWMATRIX_BASE = 0x0057DFD0;
 
 
@@ -18,6 +19,11 @@ constexpr uintptr_t OFFSET_VIEWMATRIX_BASE = 0x0057DFD0;
 constexpr int MAX_PLAYERS = 32;
 inline const wchar_t* PROCESS_NAME = L"ac_client.exe";
 constexpr float RadToDeg = (180.0f / 3.14159265f);
+
+
+// currently patched
+
+extern bool NoRecoilCurrentlyPatched;
 
 
 // EXTERNS
@@ -41,8 +47,10 @@ extern int lastHeight;
 
 struct ExcitedSettings {
 	bool ESP = false;
+	bool HPBar = false;
+	bool Distance = false;
 	bool AimBot = false;
-	float AimBotFOV = 250.f;
+	float AimBotFOVValue = 250.f;
 };
 
 extern ExcitedSettings settings;
