@@ -42,7 +42,7 @@ extern bool lastKeyState;
 //SETTINGS & CLASSES
 
 struct ExcitedSettings {
-	bool showMenu = true;
+	bool showMenu = false;
 	bool ESP = false;
 };
 

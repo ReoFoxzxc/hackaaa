@@ -35,6 +35,9 @@ Player::Player(Player&& other) noexcept {
     boxHeight = other.boxHeight;
     boxWidth = other.boxWidth;
     aimDistance = other.aimDistance;
+
+    other.ptr = nullptr;
+    other.address = 0;
 }
 
 Player& Player::operator=(Player&& other) noexcept {
@@ -135,7 +138,7 @@ ImU32 Player::getBoxColor() const {
 
 void Player::ComputeBoxDimensions() {
     boxHeight = screenFeet.y - screenHead.y;
-    boxWidth = boxHeight / 0.5f;
+    boxWidth = boxHeight / 2.0f;
 
 }
 

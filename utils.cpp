@@ -25,7 +25,7 @@ DWORD getProcessID(const wchar_t* processName) {
 }
 
 HANDLE OpenGameProcess(DWORD PID, const wchar_t* processName) {
-	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, PID);
+	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID);
 
 	if (hProcess == NULL) {
 		return NULL;
@@ -53,8 +53,8 @@ bool InitGame() {
 			return false;
 	}
 
-	HANDLE hProcess = OpenGameProcess(PID, PROCESS_NAME);
-	if (!hProcess) {
+	hGame = OpenGameProcess(PID, PROCESS_NAME);
+	if (!hGame) {
 		std::wcerr << L"[!] Failed to open game handle." << std::endl;
 		return false;
 	}

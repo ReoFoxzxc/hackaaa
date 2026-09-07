@@ -5,7 +5,11 @@
 #include "math.h"
 
 void PlayerManagement::BuildPlayerList() {
-	float* viewMatrix = RPM<float*>(OFFSET_VIEWMATRIX_BASE);
+	players.clear();
+	float viewMatrix[16]{};
+	if (!RPM(OFFSET_VIEWMATRIX_BASE, viewMatrix)) {
+		return;
+	}
 
 	int totalPlayers = RPM<int>(OFFSET_NUMPLAYERS);
 	uintptr_t playerListPtr = static_cast<uintptr_t>(RPM<uint32_t>(OFFSET_ENTITYLIST));

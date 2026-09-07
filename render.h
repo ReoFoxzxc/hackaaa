@@ -6,6 +6,7 @@
 #include "classes.h"
 
 bool CreateOverlayWindow();
+void UpdateOverlayInputMode(bool menuOpen);
 bool CreateDevice();
 ImGuiIO& InitOverlay();
 void Cleanup();
@@ -16,6 +17,7 @@ void DrawMenu(Player& localPlayer);
 
 void UpdateRenderDimensions();
 bool isGameMinimized();
+bool isGameInForeground();
 void HandleWindowMessages(MSG& msg);
 bool HandleDeviceReset(int& lastWidth, int& lastHeight);
 

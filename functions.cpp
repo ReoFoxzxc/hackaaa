@@ -8,7 +8,7 @@ void DrawESP(const std::vector<Player>& players) {
 
     for (const auto& player : players) {
         if (settings.ESP && player.isEnemy) {
-            player.DrawBox(drawList, 3.0f);
+            player.DrawBox(drawList);
         }
     }
 }

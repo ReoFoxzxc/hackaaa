@@ -29,7 +29,7 @@ bool CreateOverlayWindow() {
         0, 0, 0, 0, nullptr, nullptr, wc.hInstance, nullptr);
 
     hwndOverlay = CreateWindowExW(
-        WS_EX_TOPMOST | WS_EX_LAYERED,
+        WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TOOLWINDOW,
         L"OverlayClass", L"Overlay",
         WS_POPUP, 100, 100, 800, 600,
         parentWindow, nullptr, wc.hInstance, nullptr
@@ -38,6 +38,22 @@ bool CreateOverlayWindow() {
     SetLayeredWindowAttributes(hwndOverlay, RGB(0, 0, 0), 255, LWA_COLORKEY);
     ShowWindow(hwndOverlay, SW_SHOW);
     return true;
+}
+
+void UpdateOverlayInputMode(bool menuOpen) {
+    LONG_PTR exStyle = GetWindowLongPtr(hwndOverlay, GWL_EXSTYLE);
+
+    if (menuOpen) {
+        exStyle &= ~WS_EX_TRANSPARENT;
+        SetWindowLongPtr(hwndOverlay, GWL_EXSTYLE, exStyle);
+        while (ShowCursor(TRUE) < 0);
+        SetCursor(LoadCursorW(NULL, IDC_ARROW));
+    }
+    else {
+        exStyle |= WS_EX_TRANSPARENT;
+        SetWindowLongPtr(hwndOverlay, GWL_EXSTYLE, exStyle);
+        while (ShowCursor(FALSE) >= 0);
+    }
 }
 
 bool CreateDevice() {
@@ -91,7 +107,12 @@ void Cleanup() {
 void BeginImGuiFrame(ImGuiIO& io) {
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
+
     io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+    io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+
+    io.MouseDrawCursor = settings.showMenu;
+
     ImGui::NewFrame();
 }
 
@@ -137,6 +158,10 @@ bool isGameMinimized() {
     WINDOWPLACEMENT placement = { sizeof(WINDOWPLACEMENT) };
     GetWindowPlacement(hwndGame, &placement);
     return placement.showCmd == SW_SHOWMINIMIZED;
+}
+
+bool isGameInForeground() {
+    return GetForegroundWindow() == hwndGame;
 }
 
 void HandleWindowMessages(MSG& msg) {

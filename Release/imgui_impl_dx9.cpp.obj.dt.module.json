@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Release\\imgui_impl_dx9.obj",
+            "outputs": [
+                "Release\\imgui_impl_dx9.cpp.obj.dt.module.json",
+                "Release\\imgui_impl_dx9.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
