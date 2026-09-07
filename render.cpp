@@ -29,7 +29,7 @@ bool CreateOverlayWindow() {
         0, 0, 0, 0, nullptr, nullptr, wc.hInstance, nullptr);
 
     hwndOverlay = CreateWindowExW(
-        WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TOOLWINDOW,
+        WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_TRANSPARENT,
         L"OverlayClass", L"Overlay",
         WS_POPUP, 100, 100, 800, 600,
         parentWindow, nullptr, wc.hInstance, nullptr
@@ -40,21 +40,6 @@ bool CreateOverlayWindow() {
     return true;
 }
 
-void UpdateOverlayInputMode(bool menuOpen) {
-    LONG_PTR exStyle = GetWindowLongPtr(hwndOverlay, GWL_EXSTYLE);
-
-    if (menuOpen) {
-        exStyle &= ~WS_EX_TRANSPARENT;
-        SetWindowLongPtr(hwndOverlay, GWL_EXSTYLE, exStyle);
-        while (ShowCursor(TRUE) < 0);
-        SetCursor(LoadCursorW(NULL, IDC_ARROW));
-    }
-    else {
-        exStyle |= WS_EX_TRANSPARENT;
-        SetWindowLongPtr(hwndOverlay, GWL_EXSTYLE, exStyle);
-        while (ShowCursor(FALSE) >= 0);
-    }
-}
 
 bool CreateDevice() {
 	pD3D = Direct3DCreate9(D3D_SDK_VERSION);
@@ -105,16 +90,16 @@ void Cleanup() {
 }
 
 void BeginImGuiFrame(ImGuiIO& io) {
+
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
 
     io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
     io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
 
-    io.MouseDrawCursor = settings.showMenu;
-
     ImGui::NewFrame();
 }
+
 
 void EndImGuiFrame() {
     ImGui::Render();
@@ -126,22 +111,6 @@ void EndImGuiFrame() {
     pDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void DrawMenu(Player& localPlayer) {
-    if (!ImGui::GetCurrentContext() || !settings.showMenu) {
-        return;
-    }
-
-    ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(400, 300), ImGuiCond_FirstUseEver);
-
-    if (ImGui::Begin("ExcitedClient", &settings.showMenu, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize)) {
-        ImGui::Text("Yaw: %.1f", localPlayer->yaw);
-        ImGui::Text("Pitch: %.1f", localPlayer->pitch);
-        ImGui::Checkbox("ESP", &settings.ESP);
-    }
-
-    ImGui::End();
-}
 
 void UpdateRenderDimensions() {
     RECT clientRect;
@@ -154,15 +123,18 @@ void UpdateRenderDimensions() {
     MoveWindow(hwndOverlay, topLeft.x, topLeft.y, screenWidth, screenHeight, TRUE);
 }
 
+
 bool isGameMinimized() {
     WINDOWPLACEMENT placement = { sizeof(WINDOWPLACEMENT) };
     GetWindowPlacement(hwndGame, &placement);
     return placement.showCmd == SW_SHOWMINIMIZED;
 }
 
+
 bool isGameInForeground() {
     return GetForegroundWindow() == hwndGame;
 }
+
 
 void HandleWindowMessages(MSG& msg) {
     if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE)) {
@@ -171,9 +143,9 @@ void HandleWindowMessages(MSG& msg) {
     }
 }
 
+
 bool HandleDeviceReset(int& lastWidth, int& lastHeight) {
     if (screenWidth == lastWidth && screenHeight == lastHeight) return true;
-    if (settings.showMenu && ImGui::IsAnyMouseDown()) return true;
 
     lastWidth = screenWidth;
     lastHeight = screenHeight;
@@ -192,6 +164,7 @@ bool HandleDeviceReset(int& lastWidth, int& lastHeight) {
     ImGui_ImplDX9_CreateDeviceObjects();
     return true;
 }
+
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))

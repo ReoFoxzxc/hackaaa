@@ -14,8 +14,6 @@
 	int lastWidth = 0;
 	int lastHeight = 0;
 
-	bool lastKeyState = false;
-
 	ExcitedSettings settings;
 
 	PlayerManagement g_playerManagement;

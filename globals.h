@@ -36,13 +36,10 @@ extern int screenHeight;
 extern int lastWidth;
 extern int lastHeight;
 
-extern bool lastKeyState;
-
 
 //SETTINGS & CLASSES
 
 struct ExcitedSettings {
-	bool showMenu = false;
 	bool ESP = false;
 };
 

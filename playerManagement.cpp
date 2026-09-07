@@ -26,6 +26,7 @@ void PlayerManagement::BuildPlayerList() {
 
 		if (!playerPtr) continue;
 
+
 		Player p(playerPtr);
 
 		if (!p.isValidCheck() || !p.isAliveCheck()) { continue; }

@@ -6,14 +6,12 @@
 #include "classes.h"
 
 bool CreateOverlayWindow();
-void UpdateOverlayInputMode(bool menuOpen);
 bool CreateDevice();
 ImGuiIO& InitOverlay();
 void Cleanup();
 
 void BeginImGuiFrame(ImGuiIO& io);
 void EndImGuiFrame();
-void DrawMenu(Player& localPlayer);
 
 void UpdateRenderDimensions();
 bool isGameMinimized();

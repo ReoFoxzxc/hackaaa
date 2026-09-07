@@ -8,6 +8,7 @@
 
 int main()
 {
+    FreeConsole();
     if (!InitGame()) {
         std::cerr << "Failed to initialize the game" << std::endl;
         return -1;
@@ -35,14 +36,7 @@ int main()
             SetWindowPos(hwndOverlay, HWND_TOPMOST, 0, 0, 0, 0,
                 SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
         }
-        bool KeyPressed = (GetAsyncKeyState(VK_INSERT) & 1);
-
-        if (KeyPressed && !lastKeyState) {
-            settings.showMenu = !settings.showMenu;
-            UpdateOverlayInputMode(settings.showMenu);
-        }
-
-        lastKeyState = KeyPressed;
+     
         g_playerManagement.ReadLocalPlayer();
 
         if (!g_playerManagement.getLocalPlayer()->isValidCheck()) continue;
@@ -50,11 +44,11 @@ int main()
         g_playerManagement.BuildPlayerList();
 
         BeginImGuiFrame(io);
-        DrawMenu(g_playerManagement.getLocalPlayerRef());
         DrawESP(g_playerManagement.getPlayers());
+        AimBot(g_playerManagement.getPlayers(), g_playerManagement.getLocalPlayerRef());
         EndImGuiFrame();
+        // Sleep(1); // чтобы не рвало
     }
-    Cleanup();
     return 0;
 }
 

@@ -19,11 +19,22 @@ bool WorldToScreen(const Vec3& world, Vec2& screen, float* m, int width, int hei
     return true;
 }
 
+Vec2 NormalizeAngles(Vec2 angle) {
+    while (angle.x > 360.0f) angle.x -= 360.0f;
+    while (angle.x < 0.0f) angle.x += 360.0f;
+
+    if (angle.y > 85.0f) angle.y = 85.0f;
+    if (angle.y < -85.0f) angle.y = -85.0f;
+
+    return angle;
+}
 
 Vec2 CalcAimAngles(const Vec3& from, const Vec3& to) {
     Vec3 delta = to - from;
-    float yaw = atan2(delta.x, delta.z) * RadToDeg;
-    float pitch = atan2(delta.z, from.Distance(to)) * RadToDeg;
+    float HorizontalDistance = sqrt(delta.x * delta.x + delta.y * delta.y);
 
-    return Vec2(yaw, pitch);
+    float yaw = atan2(delta.y, delta.x) * RadToDeg + 90.0f;
+    float pitch = atan2(delta.z, HorizontalDistance) * RadToDeg;
+
+    return NormalizeAngles(Vec2(yaw, pitch));
 }
