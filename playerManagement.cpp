@@ -25,7 +25,7 @@ void PlayerManagement::BuildPlayerList() {
 		uintptr_t playerPtr = static_cast<uintptr_t>(RPM<uint32_t>(entryAddress));
 
 		if (!playerPtr) continue;
-
+		if (playerPtr == localPlayer.address) continue;
 
 		Player p(playerPtr);
 
@@ -41,9 +41,6 @@ void PlayerManagement::BuildPlayerList() {
 		p.aimDistance = Vec2{ (float)screenWidth / 2, float(screenHeight) / 2 }.Distance(p.screenHead);
 
 		players.push_back(std::move(p));
-		if ((int)players.size() >= totalPlayers - 1) {
-			break;
-		}
 	}
 }	
 

@@ -33,8 +33,6 @@ int main()
         }
         else {
             ShowWindow(hwndOverlay, SW_SHOW);
-            SetWindowPos(hwndOverlay, HWND_TOPMOST, 0, 0, 0, 0,
-                SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
         }
      
         g_playerManagement.ReadLocalPlayer();
@@ -45,10 +43,12 @@ int main()
 
         BeginImGuiFrame(io);
         DrawESP(g_playerManagement.getPlayers());
-        AimBot(g_playerManagement.getPlayers(), g_playerManagement.getLocalPlayerRef());
+        DrawFOV();
+        AimBot(g_playerManagement.getPlayers(), g_playerManagement.getLocalPlayerRef(), settings.AimBotFOV);
         EndImGuiFrame();
-        // Sleep(1); // чтобы не рвало
+        Sleep(1);
     }
+    Cleanup();
     return 0;
 }
 

@@ -41,6 +41,8 @@ extern int lastHeight;
 
 struct ExcitedSettings {
 	bool ESP = false;
+	bool AimBot = false;
+	float AimBotFOV = 250.f;
 };
 
 extern ExcitedSettings settings;

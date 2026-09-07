@@ -16,7 +16,26 @@ void DrawESP(const std::vector<Player>& players) {
 }
 
 
-void AimBot(const std::vector<Player>& players, Player& localPlayer) {
+void DrawFOV() {
+    if (!ImGui::GetCurrentContext()) return;
+
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    if (!drawList) return;
+
+    ImVec2 center = ImVec2(
+        static_cast<float>(screenWidth) / 2.0f,
+        static_cast<float>(screenHeight) / 2.0f
+    );
+
+    float radius = 250.0f;
+    ImU32 color = IM_COL32(255, 0, 0, 255); // Red color (RGBA)
+
+
+    drawList->AddCircle(center, radius, color);
+}
+
+
+void AimBot(const std::vector<Player>& players, Player& localPlayer, float fov) {
     const Player* best_target = nullptr;
     float minAimDistance = FLT_MAX;
 
@@ -33,7 +52,10 @@ void AimBot(const std::vector<Player>& players, Player& localPlayer) {
         return;
     }
 
-    Vec2 aimAngles = CalcAimAngles(localPlayer.HeadPos(), best_target->HeadPos());
-    WPM<float>(localPlayer.address + 0x034, aimAngles.x);
-    WPM<float>(localPlayer.address + 0x038, aimAngles.y);
+
+    if (best_target->aimDistance <= fov) {
+        Vec2 aimAngles = CalcAimAngles(localPlayer.HeadPos(), best_target->HeadPos());
+        WPM<float>(localPlayer.address + 0x034, aimAngles.x);
+        WPM<float>(localPlayer.address + 0x038, aimAngles.y);
+    }
 }
