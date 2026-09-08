@@ -11,3 +11,4 @@ void DrawFOV();
 void DrawSL(const std::vector<Player>& players);
 void DrawND(const std::vector<Player>& players);
 void NoRecoil();
+void NoSpread();

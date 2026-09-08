@@ -31,5 +31,5 @@ inline void WPM(uintptr_t address, const BYTE* buffer, size_t size) {
 
 inline void NopMemory(uintptr_t address, size_t size) {
 	std::vector<uint8_t> nopBytes(size, 0x90);
-	WPM(address, nopBytes);
+	WPM(address, nopBytes.data(), nopBytes.size());
 }

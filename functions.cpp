@@ -144,9 +144,28 @@ void AimBot(const std::vector<Player>& players, Player& localPlayer, float fov) 
 }
 
 
+void NoSpread() {
+    if (NoSpreadCurrentlyPatched) {
+        return;
+    }
+
+    uintptr_t targetByteAddress = OFFSET_SPREAD + 1;
+    BYTE jneOpcode = 0x85;
+
+    WPM(targetByteAddress, &jneOpcode, sizeof(jneOpcode));
+
+    NoSpreadCurrentlyPatched = true;
+}
+
+
 void NoRecoil() {
-    BYTE nopPatch[5] = { 0x90, 0x90, 0x90, 0x90, 0x90 };
-    WPM(OFFSET_RECOIL, nopPatch, sizeof(nopPatch));
+    if (NoRecoilCurrentlyPatched) {
+        return;
+    }
+
+    NopMemory(OFFSET_RECOIL, 5);
+    NopMemory(OFFSET_VELOCITY_X, 5);
+    NopMemory(OFFSET_VELOCITY_Z, 5);
     NoRecoilCurrentlyPatched = true;
 }
 

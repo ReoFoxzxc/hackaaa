@@ -11,6 +11,9 @@ constexpr uintptr_t OFFSET_NUMPLAYERS = 0x0058AC0C;
 constexpr uintptr_t OFFSET_ENTITYLIST = 0x0058AC04;
 constexpr uintptr_t OFFSET_CURRENT_FRAME = 0x0057F10C;
 constexpr uintptr_t OFFSET_RECOIL = 0x004C2EC3;
+constexpr uintptr_t OFFSET_VELOCITY_X = 0x004C8DFB;
+constexpr uintptr_t OFFSET_VELOCITY_Z = 0x004C8DD2;
+constexpr uintptr_t OFFSET_SPREAD = 0x004C8C51;
 constexpr uintptr_t OFFSET_VIEWMATRIX_BASE = 0x0057DFD0;
 
 
@@ -24,6 +27,7 @@ constexpr float RadToDeg = (180.0f / 3.14159265f);
 // currently patched
 
 extern bool NoRecoilCurrentlyPatched;
+extern bool NoSpreadCurrentlyPatched;
 
 
 // EXTERNS

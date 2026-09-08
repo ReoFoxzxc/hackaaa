@@ -10,6 +10,7 @@
 	D3DPRESENT_PARAMETERS d3dpp = {};
 
 	bool NoRecoilCurrentlyPatched = false;
+	bool NoSpreadCurrentlyPatched = false;
 
 	int screenWidth = 0;
 	int screenHeight = 0;

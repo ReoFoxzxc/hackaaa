@@ -30,6 +30,7 @@ void PlayerManagement::BuildPlayerList() {
 		Player p(playerPtr);
 
 		if (!p.isValidCheck() || !p.isAliveCheck()) { continue; }
+		if (p.getHealth() <= 0 || p.getHealth() > 100) continue;
 
 		if (!WorldToScreen(p.HeadPos(), p.screenHead, viewMatrix, screenWidth, screenHeight)) { continue; }
 		if (!WorldToScreen(p.FootPos(), p.screenFeet, viewMatrix, screenWidth, screenHeight)) { continue; }

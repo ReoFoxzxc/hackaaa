@@ -103,12 +103,10 @@ int main()
             g_playerManagement.getLocalPlayerRef(),
             settings.AimBotFOVValue
         );
-
+        NoSpread();
         NoRecoil();
 
         EndImGuiFrame();
-
-        Sleep(1);
     }
 
     Cleanup();

@@ -107,8 +107,7 @@ bool CreateDevice()
     d3dpp.BackBufferWidth = 800;
     d3dpp.BackBufferHeight = 600;
 
-    // Не ждём VSync на overlay.
-    d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+    d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;;
 
     HRESULT hr = pD3D->CreateDevice(
         D3DADAPTER_DEFAULT,
@@ -189,7 +188,6 @@ void EndImGuiFrame()
 {
     ImGui::Render();
 
-    // Очищаем только наш собственный backbuffer.
     pDevice->Clear(
         0,
         nullptr,
@@ -201,17 +199,10 @@ void EndImGuiFrame()
 
     if (SUCCEEDED(pDevice->BeginScene()))
     {
-        ImGui_ImplDX9_RenderDrawData(
-            ImGui::GetDrawData()
-        );
-
+        ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
         pDevice->EndScene();
     }
 
-    // ВАЖНО:
-    // Это отдельный device overlay, поэтому Present здесь нужен.
-    // PresentationInterval = IMMEDIATE, поэтому он не должен
-    // искусственно ждать VSync.
     pDevice->Present(
         nullptr,
         nullptr,
